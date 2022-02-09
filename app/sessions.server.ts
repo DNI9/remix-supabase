@@ -3,9 +3,7 @@ import { createCookieSessionStorage, json } from "remix";
 import { supabase } from "./supabase";
 
 let sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret) {
-  throw new Error("SESSION_SECRET must be set");
-}
+if (!sessionSecret) throw new Error("SESSION_SECRET must be set");
 
 //TODO: Get these options from env
 let storage = createCookieSessionStorage({

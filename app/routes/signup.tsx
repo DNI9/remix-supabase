@@ -29,8 +29,8 @@ export default function Signup() {
     setLoading(false);
   };
 
-  const handleClickGithubSignup = () => {
-    supabase.auth.signIn({ provider: "github" });
+  const handleGoogleSignup = () => {
+    supabase.auth.signIn({ provider: "google" });
   };
 
   return (
@@ -57,7 +57,7 @@ export default function Signup() {
           Signup
         </button>
       </form>
-      <button onClick={handleClickGithubSignup}>Sign up with github</button>
+      <button onClick={handleGoogleSignup}>Sign up with Google</button>
       {error}
     </div>
   );

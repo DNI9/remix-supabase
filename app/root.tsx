@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { LinksFunction } from "remix";
 import {
   Links,
   LiveReload,
@@ -9,23 +10,13 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "remix";
-import type { LinksFunction } from "remix";
-
-import globalStylesUrl from "~/styles/global.css";
 import darkStylesUrl from "~/styles/dark.css";
-import { UserContextProvider } from "./useUser";
+import globalStylesUrl from "~/styles/global.css";
 import Layout from "./components/Layout";
 import RouteChangeAnnouncement from "./components/RouteChangeAnnouncement";
 import { getLoggedInUser } from "./sessions.server";
+import { UserContextProvider } from "./useUser";
 
-/**
- * The `links` export is a function that returns an array of objects that map to
- * the attributes for an HTML `<link>` element. These will load `<link>` tags on
- * every route in the app, but individual routes can include their own links
- * that are automatically unloaded when a user navigates away from the route.
- *
- * https://remix.run/api/app#links
- */
 export let links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: globalStylesUrl },
@@ -52,27 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 /**
- * The root module's default export is a component that renders the current
- * route via the `<Outlet />` component. Think of this as the global layout
- * component for your app.
- */
-export default function App() {
-  const { ENV } = useLoaderData<RootLoader>();
-
-  return (
-    <Document>
-      <UserContextProvider>
-        <Layout>
-          <Outlet />
-        </Layout>
-      </UserContextProvider>
-      <EnvironmentSetter env={ENV} />
-    </Document>
-  );
-}
-
-/**
- This component loads environment variables into window.ENV 
+ This component loads environment variables into window.ENV
  */
 function EnvironmentSetter({ env }: { env: { [key: string]: string } }) {
   return (
@@ -108,5 +79,25 @@ function Document({
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
+  );
+}
+
+/**
+ * The root module's default export is a component that renders the current
+ * route via the `<Outlet />` component. Think of this as the global layout
+ * component for your app.
+ */
+export default function App() {
+  const { ENV } = useLoaderData<RootLoader>();
+
+  return (
+    <Document>
+      <UserContextProvider>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </UserContextProvider>
+      <EnvironmentSetter env={ENV} />
+    </Document>
   );
 }

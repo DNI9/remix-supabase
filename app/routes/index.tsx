@@ -1,7 +1,7 @@
 import { Link, LoaderFunction, useLoaderData } from "remix";
-import { useUser } from "~/useUser";
-import { supabase } from "~/supabase";
 import { getLoggedInUser } from "~/sessions.server";
+import { supabase } from "~/supabase";
+import { useUser } from "~/useUser";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getLoggedInUser(request);
@@ -24,7 +24,7 @@ export default function Index() {
 
       {!user && (
         <p>
-          You're not logged in yet, go <Link to="signup">sign up</Link> or{" "}
+          You are not logged in yet, go <Link to="signup">sign up</Link> or{" "}
           <Link to="login">log in</Link>!
         </p>
       )}
