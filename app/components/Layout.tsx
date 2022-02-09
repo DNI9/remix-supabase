@@ -15,9 +15,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Link to="/">Home</Link>
               </li>
               {userId ? (
-                <li>
-                  <Link to="/logout">Logout</Link>
-                </li>
+                <>
+                  <li>
+                    <Link to="/logout">Logout</Link>
+                  </li>
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                </>
               ) : (
                 <li>
                   <Link to="/login">Login</Link>

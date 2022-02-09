@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js";
-import { createCookieSessionStorage, json } from "remix";
+import { createCookieSessionStorage, json, redirect } from "remix";
 import { supabase } from "./supabase";
 
 let sessionSecret = process.env.SESSION_SECRET;
@@ -57,6 +57,19 @@ export async function getLoggedInUser(request: Request): Promise<User | null> {
   if (!accessToken || typeof accessToken !== "string") return null;
   const { user } = await supabase.auth.api.getUser(accessToken);
   return user;
+}
+
+export async function requireUserAccess(
+  request: Request,
+  redirectTo: string = new URL(request.url).pathname
+) {
+  const session = await getUserSession(request);
+  const accessToken = session.get("accessToken");
+  if (!accessToken || typeof accessToken !== "string") {
+    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+    throw redirect(`/login?${searchParams}`);
+  }
+  return accessToken;
 }
 
 /** Destroy the session cookie  */
