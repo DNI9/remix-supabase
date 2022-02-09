@@ -1,5 +1,5 @@
-import { Link, useLoaderData } from "remix";
 import React from "react";
+import { Link, useLoaderData } from "remix";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const loader = useLoaderData() || {};
@@ -19,14 +19,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <Link to="/logout">Logout</Link>
                 </li>
               ) : (
-                <>
-                  <li>
-                    <Link to="/login">Login</Link>
-                  </li>
-                  <li>
-                    <Link to="/signup">Sign up</Link>
-                  </li>
-                </>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
               )}
             </ul>
           </div>
