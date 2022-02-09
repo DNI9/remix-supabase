@@ -1,4 +1,6 @@
-# Welcome to Remix!
+# Demo of Remix with Supabase OAuth!
+
+Modified code from [VictorPeralta](https://github.com/VictorPeralta/supabase-remix-auth)
 
 - [Remix Docs](https://remix.run/docs)
 
@@ -16,6 +18,12 @@ vercel
 It is generally recommended to use a Git repository, because future commits will then automatically be deployed by Vercel, through its [Git Integration](https://vercel.com/docs/concepts/git).
 
 ## Development
+
+```sh
+cp .env.example .env
+```
+
+> Remember to set env vars to vercel as well
 
 To run your Remix app locally, make sure your project's local dependencies are installed:
 
