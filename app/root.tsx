@@ -13,12 +13,11 @@ import {
 import Layout from "./components/Layout";
 import RouteChangeAnnouncement from "./components/RouteChangeAnnouncement";
 import { getLoggedInUser } from "./sessions.server";
+import styles from "./styles/app.css";
 import { UserContextProvider } from "./useUser";
 
 export let links: LinksFunction = () => {
-  return [
-    // { rel: "stylesheet", href: globalStylesUrl },
-  ];
+  return [{ rel: "stylesheet", href: styles }];
 };
 
 interface RootLoader {
