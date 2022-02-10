@@ -7,7 +7,7 @@
     "build": "remix build",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
-    "start": "remix-serve api/_build",
+    "start": "node -r dotenv/config node_modules/.bin/remix-serve api/_build",
     "lint": "eslint ./app"
   },
   "dependencies": {
