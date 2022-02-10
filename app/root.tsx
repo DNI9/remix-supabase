@@ -63,7 +63,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-gray-800 text-white">
         {children}
         <RouteChangeAnnouncement />
         <ScrollRestoration />

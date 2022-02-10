@@ -6,9 +6,13 @@ export default function LogIn() {
   };
 
   return (
-    <div>
-      <p>Log in to your app</p>
-      <button onClick={handleGoogleSignup}>Log in with Google</button>
+    <div className="flex flex-col justify-center items-center mt-36">
+      <h1 className="text-5xl font-bold mb-2 text-center">
+        Log in to continue
+      </h1>
+      <button onClick={handleGoogleSignup} className="mt-5">
+        Continue with Google
+      </button>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { Link, LoaderFunction, useLoaderData } from "remix";
 import { getLoggedInUser } from "~/sessions.server";
-import { supabase } from "~/supabase";
 import { useUser } from "~/useUser";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -13,20 +12,25 @@ export default function Index() {
   const { id: userId } = useLoaderData() || {};
 
   return (
-    <div>
-      <h1>Remix + Supabase Auth Starter</h1>
-
-      {user && <p>Your user id from client is: {user.id}</p>}
-
-      {userId && <p>Your user from server is: {userId}</p>}
-
-      {user && <button onClick={() => supabase.auth.signOut()}>logout</button>}
+    <div className="flex flex-col justify-center items-center mt-36">
+      <h1 className="text-5xl font-bold mb-2 text-center">
+        Remix + Supabase Auth + Tailwind Starter
+      </h1>
 
       {!user && (
-        <p>
-          You are not logged in yet, go <Link to="signup">sign up</Link> or{" "}
-          <Link to="login">log in</Link>!
-        </p>
+        <Link to="login" className="mt-3">
+          <button>Sign in</button>
+        </Link>
+      )}
+
+      <div className="my-2">
+        {user && <p>User from client is: {user.id}</p>}
+        {userId && <p>User from server is: {userId}</p>}
+      </div>
+      {user && (
+        <Link to="profile" className="mt-3">
+          <button>Go to Profile</button>
+        </Link>
       )}
     </div>
   );

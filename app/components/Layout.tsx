@@ -6,35 +6,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const userId = loader.user?.id;
 
   return (
-    <div className="remix-app">
-      <header className="">
-        <nav aria-label="Main navigation" className="navbar">
-          <div className="container navbar-menu">
-            <ul>
+    <div className="">
+      <header className="bg-gray-700 p-3 text-white">
+        <nav aria-label="Main navigation">
+          <ul className="flex space-x-3">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {userId ? (
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/profile">Profile</Link>
               </li>
-              {userId ? (
-                <>
-                  <li>
-                    <Link to="/logout">Logout</Link>
-                  </li>
-                  <li>
-                    <Link to="/profile">Profile</Link>
-                  </li>
-                </>
-              ) : (
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              )}
-            </ul>
-          </div>
+            ) : (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+          </ul>
         </nav>
       </header>
-      <div className="">
-        <div className="container">{children}</div>
-      </div>
+      <div className="container mx-auto">{children}</div>
     </div>
   );
 }

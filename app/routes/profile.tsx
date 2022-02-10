@@ -1,11 +1,35 @@
-import { LoaderFunction } from "remix";
-import { requireUserAccess } from "~/sessions.server";
+import { User } from "@supabase/supabase-js";
+import { LoaderFunction, useLoaderData } from "remix";
+import { getLoggedInUser, requireUserAccess } from "~/sessions.server";
+import { supabase } from "~/supabase";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await requireUserAccess(request);
-  return {};
+  const user = await getLoggedInUser(request);
+  return user;
 };
 
 export default function Profile() {
-  return <h1>Private page</h1>;
+  const data = useLoaderData<User | null>();
+  const user = data?.user_metadata;
+
+  if (!user) return <p>No user data available</p>;
+
+  return (
+    <div className="flex flex-col justify-center items-center mt-36">
+      <div className="w-28 h-28 bg-gray-700 p-2 mb-3 rounded-lg">
+        <img
+          className="rounded-lg"
+          src={user.picture}
+          alt={`Photo of ${user.full_name}`}
+        />
+      </div>
+      <h1 className="text-5xl font-bold mb-2 text-center">{user.full_name}</h1>
+      <p>{user.email}</p>
+      <button className="mt-3" onClick={() => supabase.auth.signOut()}>
+        Sign out
+      </button>
+      <p></p>
+    </div>
+  );
 }
