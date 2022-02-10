@@ -1,4 +1,11 @@
+import { MetaFunction } from "remix";
 import { supabase } from "~/supabase";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Login | Remix + Supabase + Tailwind CSS Starter",
+  };
+};
 
 export default function LogIn() {
   const handleGoogleSignup = () => {

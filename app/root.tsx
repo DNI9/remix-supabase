@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { LinksFunction } from "remix";
+import type { LinksFunction, MetaFunction } from "remix";
 import {
   Links,
   LiveReload,
@@ -18,6 +18,14 @@ import { UserContextProvider } from "./useUser";
 
 export let links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
+};
+
+export const meta: MetaFunction = () => {
+  const description = `Remix + Supabase + Tailwind CSS Starter`;
+  return {
+    description,
+    keywords: "supabase,remix,oauth,vercel,tailwind",
+  };
 };
 
 interface RootLoader {
@@ -49,7 +57,7 @@ function EnvironmentSetter({ env }: { env: { [key: string]: string } }) {
 
 function Document({
   children,
-  title,
+  title = `Remix + Supabase + Tailwind CSS Starter`,
 }: {
   children: React.ReactNode;
   title?: string;
@@ -59,8 +67,8 @@ function Document({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        {title ? <title>{title}</title> : null}
         <Meta />
+        <title>{title}</title>
         <Links />
       </head>
       <body className="bg-gray-800 text-white">

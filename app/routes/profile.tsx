@@ -1,17 +1,29 @@
 import { User } from "@supabase/supabase-js";
-import { LoaderFunction, useLoaderData } from "remix";
+import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { getLoggedInUser, requireUserAccess } from "~/sessions.server";
 import { supabase } from "~/supabase";
+
+type LoaderData = {
+  user: User | null;
+};
+
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+  const user = data?.user?.user_metadata;
+  return {
+    title: `${user?.full_name ?? "Anon"} | Profile`,
+  };
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   await requireUserAccess(request);
   const user = await getLoggedInUser(request);
-  return user;
+  const data: LoaderData = { user };
+  return data;
 };
 
 export default function Profile() {
-  const data = useLoaderData<User | null>();
-  const user = data?.user_metadata;
+  const data = useLoaderData<LoaderData>();
+  const user = data?.user?.user_metadata;
 
   if (!user) return <p>No user data available</p>;
 
